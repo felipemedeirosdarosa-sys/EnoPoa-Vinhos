@@ -1,0 +1,891 @@
+:root {
+    --wine: #641f2a;
+    --wine-dark: #42141c;
+    --cream: #ffffff;
+    --gold: #b89b5e;
+    --text: #241d1e;
+    --muted: #77706f;
+    --border: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+    color: var(--text);
+    background: var(--cream);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button, input, select {
+    font-family: inherit;
+}
+
+.container {
+    width: min(1200px, 90%);
+    margin: auto;
+}
+
+/* CABEÇALHO */
+
+.header {
+    background: var(--cream);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    min-height: 88px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo, .footer-logo {
+    display: flex;
+    flex-direction: column;
+    line-height: .85;
+    color: var(--wine);
+}
+
+.logo span, .footer-logo span {
+    font: 500 27px "Cormorant Garamond", serif;
+    letter-spacing: 5px;
+}
+
+.logo strong, .footer-logo strong {
+    font: 600 30px "Cormorant Garamond", serif;
+    letter-spacing: 3px;
+}
+
+.logo small, .footer-logo small {
+    font-size: 8px;
+    letter-spacing: 5px;
+    margin-top: 7px;
+}
+
+.menu {
+    display: flex;
+    gap: 35px;
+}
+
+.menu a {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.menu a:hover {
+    color: var(--wine);
+}
+
+.cart-button {
+    position: relative;
+    border: none;
+    background: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.cart-button span {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background: var(--wine);
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    display: grid;
+    place-items: center;
+}
+
+/* BANNER */
+
+.hero {
+    min-height: 570px;
+    display: flex;
+    align-items: center;
+    color: white;
+
+    background:
+        linear-gradient(90deg, rgba(25,10,12,.88), rgba(25,10,12,.3)),
+        url("https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1800&q=85")
+        center/cover;
+}
+
+.hero-content {
+    padding: 40px 0;
+}
+
+.eyebrow {
+    font-size: 10px;
+    letter-spacing: 5px;
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font: 500 clamp(48px, 7vw, 82px)/.95 "Cormorant Garamond", serif;
+    margin-bottom: 24px;
+}
+
+.hero-description {
+    font-size: 13px;
+    line-height: 1.8;
+    max-width: 470px;
+    margin-bottom: 30px;
+}
+
+.primary-button {
+    display: inline-block;
+    background: var(--wine);
+    color: white;
+    padding: 16px 28px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 10px;
+}
+
+.primary-button:hover,
+.checkout-button:hover {
+    background: var(--gold);
+}
+
+/* CATÁLOGO */
+
+.section {
+    padding: 85px 0;
+}
+
+.catalog {
+    background: white;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.section-title p {
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--wine);
+    margin-bottom: 10px;
+}
+
+.section-title h2,
+.modal-content h2 {
+    font: 500 46px "Cormorant Garamond", serif;
+}
+
+#resultadoContagem {
+    display: block;
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 9px;
+}
+
+/* FILTROS */
+
+.filters {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.filters input,
+.filters select {
+    min-width: 0;
+    padding: 14px;
+    border: 1px solid var(--border);
+    background: var(--cream);
+    outline-color: var(--wine);
+    font-size: 12px;
+}
+
+/* PRODUTOS */
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.product-card {
+    border: 1px solid #eee8e2;
+    background: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-visual {
+    height: 220px;
+    background: #f4f0eb;
+    display: grid;
+    place-items: center;
+    position: relative;
+}
+
+.bottle-icon {
+    font-size: 76px;
+}
+
+.product-tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: var(--wine);
+    color: white;
+    padding: 6px 8px;
+    font-size: 8px;
+    letter-spacing: 1px;
+}
+
+.product-info {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.product-type {
+    font-size: 8px;
+    letter-spacing: 1.5px;
+    color: var(--wine);
+    text-transform: uppercase;
+}
+
+.product-info h3 {
+    font: 600 21px/1.1 "Cormorant Garamond", serif;
+    margin: 8px 0;
+}
+
+.product-origin {
+    font-size: 10px;
+    color: var(--muted);
+    margin-bottom: 12px;
+}
+
+.price-line {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: auto;
+}
+
+.current-price {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.old-price {
+    font-size: 11px;
+    color: #999;
+    text-decoration: line-through;
+}
+
+.package-note {
+    font-size: 9px;
+    color: var(--muted);
+    margin-top: 7px;
+}
+
+.add-cart {
+    margin-top: 14px;
+    border: none;
+    background: var(--wine);
+    color: white;
+    padding: 12px;
+    cursor: pointer;
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+.add-cart:hover {
+    background: var(--gold);
+}
+
+.load-more {
+    display: block;
+    margin: 35px auto 0;
+    padding: 14px 25px;
+    border: 1px solid var(--wine);
+    color: var(--wine);
+    background: transparent;
+    cursor: pointer;
+}
+
+.load-more:hover {
+    background: var(--wine);
+    color: white;
+}
+
+.catalog-note {
+    text-align: center;
+    color: var(--muted);
+    font-size: 10px;
+    margin-top: 24px;
+}
+
+/* SOBRE */
+
+.about-banner {
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    color: white;
+
+    background:
+        linear-gradient(90deg, rgba(55,15,23,.9), rgba(55,15,23,.45)),
+        url("https://images.unsplash.com/photo-1473973266408-ed4e27abdd47?auto=format&fit=crop&w=1800&q=85")
+        center/cover;
+}
+
+.about-content h2 {
+    font: 500 62px/.95 "Cormorant Garamond", serif;
+    margin-bottom: 20px;
+}
+
+.about-content span {
+    display: block;
+    max-width: 450px;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* RODAPÉ */
+
+footer {
+    background: var(--wine-dark);
+    color: white;
+}
+
+.footer-content {
+    min-height: 190px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer-logo {
+    color: white;
+}
+
+.footer-links {
+    display: flex;
+    gap: 25px;
+    font-size: 11px;
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid #ffffff20;
+    padding: 18px;
+    font-size: 10px;
+    color: #c9bfc0;
+}
+
+/* CARRINHO */
+
+/* MODAL DO CARRINHO */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #0009;
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    position: relative;
+    background: var(--cream);
+    padding: 35px;
+    width: min(520px, 100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 4px;
+}
+
+.modal-content h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.close {
+    position: absolute;
+    right: 16px;
+    top: 10px;
+    border: none;
+    background: none;
+    font-size: 32px;
+    cursor: pointer;
+    color: var(--wine);
+    padding: 5px 10px;
+}
+
+.empty-cart {
+    color: var(--muted);
+    font-size: 13px;
+    padding: 20px 0;
+}
+
+
+/* ITENS DO CARRINHO */
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+}
+
+.cart-item > div:first-child {
+    flex: 1;
+    min-width: 0;
+}
+
+.cart-item strong {
+    line-height: 1.5;
+}
+
+.cart-item small {
+    display: block;
+    color: var(--muted);
+    margin-top: 6px;
+    font-size: 12px;
+}
+
+.cart-item > div:last-child {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.cart-item button {
+    border: 1px solid var(--wine);
+    background: transparent;
+    color: var(--wine);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 9px 14px;
+    margin-top: 9px;
+    min-height: 36px;
+    transition: 0.2s;
+}
+
+.cart-item button:hover {
+    background: var(--wine);
+    color: white;
+}
+
+
+/* TOTAL */
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+    margin-top: 20px;
+    font-size: 15px;
+}
+
+.cart-total strong {
+    color: var(--wine);
+    font-size: 20px;
+}
+
+
+/* DADOS DE ENTREGA */
+
+.delivery-form {
+    margin-top: 28px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+}
+
+.delivery-form h3 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 24px;
+    color: var(--wine-dark);
+    margin-bottom: 18px;
+}
+
+.delivery-form label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 14px 0 7px;
+    color: var(--text);
+}
+
+.delivery-form input {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 13px;
+    outline: none;
+    box-sizing: border-box;
+    border-radius: 2px;
+    transition: border-color 0.2s;
+}
+
+.delivery-form input:focus {
+    border-color: var(--wine);
+}
+
+.delivery-form input::placeholder {
+    color: #aaa;
+}
+
+
+/* FINALIZAR PEDIDO */
+
+.checkout-button {
+    width: 100%;
+    margin-top: 25px;
+    padding: 17px;
+    border: none;
+    background: var(--wine);
+    color: white;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: 0.2s;
+}
+
+.checkout-button:hover {
+    background: var(--wine-dark);
+}
+
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 600px) {
+
+    .modal {
+        padding: 10px;
+    }
+
+    .modal-content {
+        padding: 25px 20px;
+        max-height: 92vh;
+    }
+
+    .cart-item {
+        gap: 10px;
+        font-size: 12px;
+    }
+
+    .cart-item button {
+        padding: 10px 13px;
+        font-size: 12px;
+    }
+
+}
+
+
+/* CELULAR */
+
+@media(max-width: 900px) {
+    .product-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .menu {
+        gap: 16px;
+    }
+}
+
+@media(max-width: 650px) {
+    .menu {
+        display: none;
+    }
+
+    .hero {
+        min-height: 520px;
+    }
+
+    .hero h1 {
+        font-size: 52px;
+    }
+
+    .section {
+        padding: 65px 0;
+    }
+
+    .section-title h2 {
+        font-size: 39px;
+    }
+
+    .filters {
+        grid-template-columns: 1fr;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .product-visual {
+        height: 170px;
+    }
+
+    .product-info {
+        padding: 12px;
+    }
+
+    .product-info h3 {
+        font-size: 19px;
+    }
+
+    .about-content h2 {
+        font-size: 50px;
+    }
+
+    .footer-content {
+        padding: 40px 0;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 30px;
+    }
+}
+
+@media(max-width: 390px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.product-visual {
+    overflow: hidden;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 14px;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.06);
+}
+
+.bottle-icon {
+    font-size: 76px;
+}
+/* LOGO ENO POA */
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.footer-logo img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+.gift-option {
+    margin-top: 18px;
+    padding: 16px;
+    background: #f1e9df;
+    border: 1px solid var(--border);
+}
+
+.gift-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.gift-checkbox input {
+    accent-color: var(--wine);
+    width: 16px;
+    height: 16px;
+}
+
+.gift-message {
+    margin-top: 15px;
+}
+
+.gift-message label {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.gift-option {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 15px 0 0;
+    padding: 14px 15px;
+    background: #f8f4ee;
+    border: 1px solid var(--border);
+}
+
+.gift-option .gift-checkbox {
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 9px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    line-height: 1.4;
+    cursor: pointer;
+}
+
+.gift-option .gift-checkbox input[type="checkbox"] {
+    display: block;
+    position: static;
+    flex: 0 0 16px;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    padding: 0;
+    accent-color: var(--wine);
+}
+
+.gift-option .gift-message {
+    margin-top: 14px;
+    width: 100%;
+}
+
+.gift-option .gift-message textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* CONTROLE DE QUANTIDADE NO CARRINHO */
+
+.cart-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.quantity-btn {
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--wine);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+
+.quantity-btn:hover {
+    background: var(--wine);
+    color: white;
+}
+
+.quantity-number {
+    font-size: 13px;
+    min-width: 12px;
+    text-align: center;
+}
+
+.cart-item-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.remove-item {
+    border: none;
+    background: none;
+    color: var(--wine);
+    cursor: pointer;
+    font-size: 11px;
+    text-decoration: underline;
+}
+/* CORREÇÃO DO CURSOR NOS CAMPOS DE ENTREGA */
+
+.modal-content input,
+.modal-content textarea,
+.modal-content select {
+    color: #241d1e !important;
+    caret-color: #641f2a !important;
+    cursor: text;
+}
+
+/* Cor do texto digitado */
+.modal-content input::placeholder,
+.modal-content textarea::placeholder {
+    color: #99918b;
+    opacity: 1;
+}
+
+/* Cursor ao passar pelos campos */
+.modal-content input,
+.modal-content textarea {
+    background-color: #ffffff;
+}
+
+/* Seleção de texto */
+.modal-content input::selection,
+.modal-content textarea::selection {
+    background: #641f2a;
+    color: #ffffff;
+}

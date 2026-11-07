@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Catálogo EnoPoa Vinhos">
+    <title>EnoPoa Vinhos</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="container header-content">
+
+       <a href="#inicio" class="logo">
+    <img src="imagens/ENOPOALOGO.jpeg" alt="EnoPoa Vinhos">
+</a>
+
+        <nav class="menu">
+            <a href="#inicio">Início</a>
+            <a href="#catalogo">Catálogo</a>
+            <a href="#sobre">Sobre nós</a>
+        </nav>
+
+        <button class="cart-button" onclick="abrirCarrinho()">
+            🛒 <span id="contadorCarrinho">0</span>
+        </button>
+
+    </div>
+</header>
+
+<main>
+
+    <section class="hero" id="inicio">
+        <div class="container hero-content">
+            <p class="eyebrow">ENOPOA VINHOS</p>
+
+            <h1>
+                Descubra o vinho<br>
+                perfeito para cada momento.
+            </h1>
+
+            <p class="hero-description">
+                Uma seleção especial para brindar bons encontros
+                e criar novas histórias.
+            </p>
+
+            <a href="#catalogo" class="primary-button">
+                Explorar catálogo
+            </a>
+        </div>
+    </section>
+
+    <section class="catalog section" id="catalogo">
+
+        <div class="container">
+
+            <div class="section-title">
+                <p>NOSSA SELEÇÃO</p>
+                <h2>Explore nossos rótulos</h2>
+                <span id="resultadoContagem"></span>
+            </div>
+
+            <div class="filters">
+
+                <input
+                    type="search"
+                    id="buscaProduto"
+                    placeholder="Buscar vinho, uva ou país..."
+                >
+
+                <select id="filtroCategoria">
+                    <option value="">Todas as categorias</option>
+                </select>
+
+                <select id="filtroOrigem">
+                    <option value="">Todos os países</option>
+                </select>
+
+            </div>
+
+            <div class="product-grid" id="productGrid"></div>
+
+            <button
+                id="carregarMais"
+                class="load-more"
+                onclick="carregarMais()"
+            >
+                Carregar mais vinhos
+            </button>
+
+            <p class="catalog-note">
+                Consulte a disponibilidade e confirme os valores
+                antes de finalizar seu pedido.
+            </p>
+
+        </div>
+    </section>
+
+    <section class="about-banner" id="sobre">
+        <div class="container about-content">
+            <p class="eyebrow">ENOPOA VINHOS</p>
+
+            <h2>
+                Vinho é mais que<br>
+                uma bebida.
+            </h2>
+
+            <span>
+                É o momento, a companhia e a história
+                que fica depois da última taça.
+            </span>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="container footer-content">
+
+        <div class="footer-logo">
+            <span>ENO</span>
+            <strong>POA</strong>
+            <small>VINHOS</small>
+        </div>
+
+        <div class="footer-links">
+            <a href="#catalogo">Catálogo</a>
+            <a href="#sobre">Sobre nós</a>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © 2026 Eno Poa Vinhos — Todos os direitos reservados.
+        Venda proibida para menores de 18 anos.
+    </div>
+</footer>
+
+<!-- CARRINHO -->
+
+
+<div class="modal" id="modalCarrinho" onclick="fecharAoClicarFora(event)">
+
+    <div class="modal-content">
+
+        <button class="close" onclick="fecharCarrinho()">×</button>
+
+        <h2>Seu carrinho</h2>
+
+        <div id="listaCarrinho">
+            <p class="empty-cart">Seu carrinho está vazio.</p>
+        </div>
+
+        <div class="cart-total">
+            <span>Total</span>
+            <strong id="totalCarrinho">R$ 0,00</strong>
+        </div>
+
+        <div class="delivery-form">
+
+            <h3>Dados para entrega</h3>
+
+            <label for="nomeCliente">Nome completo</label>
+            <input
+                type="text"
+                id="nomeCliente"
+                placeholder="Digite seu nome"
+            >
+
+            <label for="enderecoCliente">Rua e endereço</label>
+            <input
+                type="text"
+                id="enderecoCliente"
+                placeholder="Nome da rua e número"
+            >
+
+            <label for="bairroCliente">Bairro</label>
+            <input
+                type="text"
+                id="bairroCliente"
+                placeholder="Digite seu bairro"
+            >
+
+            <label for="cidadeCliente">Cidade</label>
+            <input
+                type="text"
+                id="cidadeCliente"
+                placeholder="Digite sua cidade"
+            >
+
+        <div class="gift-option">
+    <label class="gift-checkbox">
+        <input type="checkbox" id="pedidoPresente" onchange="alternarPresente()">
+        Este pedido é um presente 🎁
+    </label>
+
+    <div id="campoMensagemPresente" class="gift-message" style="display: none;">
+        <label for="mensagemPresente">Mensagem para acompanhar o presente (opcional)</label>
+        <textarea
+            id="mensagemPresente"
+            placeholder="Escreva uma mensagem especial..."
+            rows="3"
+        ></textarea>
+    </div>
+</div>
+
+            <label for="complementoCliente">Complemento (opcional)</label>
+            <input
+                type="text"
+                id="complementoCliente"
+                placeholder="Apartamento, bloco, referência..."
+            >
+
+        </div>
+
+        <button class="checkout-button" onclick="finalizarPedido()">
+            Solicitar pedido pelo WhatsApp
+        </button>
+
+    </div>
+</div>
+
+
+<script src="produtos.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
