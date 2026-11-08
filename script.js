@@ -89,11 +89,13 @@ function iniciarCatalogo() {
     document.getElementById("filtroOrigem")
         .addEventListener("change", filtrarProdutos);
 
-    // Exibe os primeiros 48 produtos automaticamente
     produtosVisiveis = PAGE_SIZE;
+
     renderizarProdutos();
 
     atualizarCarrinho();
+
+    iniciarConsultaCEP();
 }
 
 
@@ -498,6 +500,145 @@ function fecharAoClicarFora(event) {
 
     if (event.target.id === "modalCarrinho") {
         fecharCarrinho();
+    }
+}
+
+
+// ==========================================
+// CONSULTA AUTOMÁTICA DE CEP - VIACEP
+// ==========================================
+
+let ultimaConsultaCEP = "";
+let controleConsultaCEP = 0;
+
+
+function iniciarConsultaCEP() {
+
+    const campoCEP = document.getElementById("cepCliente");
+
+    if (!campoCEP) return;
+
+    campoCEP.addEventListener("input", function () {
+
+        let numeros = this.value.replace(/\D/g, "").slice(0, 8);
+
+        if (numeros.length > 5) {
+            this.value = numeros.slice(0, 5) + "-" + numeros.slice(5);
+        } else {
+            this.value = numeros;
+        }
+
+        // Nova digitação invalida consultas anteriores
+        controleConsultaCEP++;
+
+        ultimaConsultaCEP = "";
+
+        if (numeros.length < 8) {
+
+            mostrarStatusCEP(
+                "Digite os 8 números do CEP.",
+                "normal"
+            );
+
+            return;
+        }
+
+        consultarCEP(numeros);
+    });
+}
+
+
+function mostrarStatusCEP(mensagem, tipo) {
+
+    const status = document.getElementById("cepStatus");
+
+    if (!status) return;
+
+    status.textContent = mensagem;
+
+    status.style.color =
+        tipo === "sucesso" ? "#287a45" :
+        tipo === "erro" ? "#b42318" :
+        "#77706f";
+}
+
+
+async function consultarCEP(cep) {
+
+    if (cep === ultimaConsultaCEP) return;
+
+    ultimaConsultaCEP = cep;
+
+    const consultaAtual = ++controleConsultaCEP;
+
+    mostrarStatusCEP("Consultando endereço...", "normal");
+
+    try {
+
+        const resposta = await fetch(
+            `https://viacep.com.br/ws/${cep}/json/`
+        );
+
+        if (!resposta.ok) {
+            throw new Error("Não foi possível consultar o CEP.");
+        }
+
+        const dados = await resposta.json();
+
+        // Ignora respostas de consultas antigas
+        if (consultaAtual !== controleConsultaCEP) return;
+
+        if (dados.erro) {
+
+            ultimaConsultaCEP = "";
+
+            mostrarStatusCEP(
+                "CEP não encontrado. Confira os números digitados.",
+                "erro"
+            );
+
+            return;
+        }
+
+        // Preenche os campos automaticamente
+        const endereco = document.getElementById("enderecoCliente");
+        const bairro = document.getElementById("bairroCliente");
+        const cidade = document.getElementById("cidadeCliente");
+
+        if (endereco) {
+            endereco.value = dados.logradouro || "";
+        }
+
+        if (bairro) {
+            bairro.value = dados.bairro || "";
+        }
+
+        if (cidade) {
+            cidade.value = dados.localidade
+                ? `${dados.localidade} - ${dados.uf}`
+                : "";
+        }
+
+        mostrarStatusCEP(
+            "✓ Endereço encontrado e preenchido automaticamente!",
+            "sucesso"
+        );
+
+        // Leva o cursor para o campo de número
+        if (endereco) endereco.focus();
+
+    } catch (erro) {
+
+        if (consultaAtual !== controleConsultaCEP) return;
+
+        ultimaConsultaCEP = "";
+
+        mostrarStatusCEP(
+            "Não foi possível consultar o CEP. Verifique sua conexão ou preencha o endereço manualmente.",
+            "erro"
+        );
+
+        console.error("Erro ao consultar CEP:", erro);
     }
 }
 
