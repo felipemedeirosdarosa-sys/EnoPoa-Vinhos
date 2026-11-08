@@ -294,7 +294,7 @@ const PRODUTOS = [
     "offerPrice": null,
     "stock": 2,
     "package": "caixa",
-    "image": "imagens/vinho-0027.jpeg"
+    "image": "imagens/vinho-0813.jpeg"
   },
   {
     "id": 28,
@@ -2145,7 +2145,7 @@ const PRODUTOS = [
     "offerPrice": 44.91,
     "stock": 24,
     "package": "garrafa",
-    "image": "imagens/vinho-0196.jpeg"
+    "image": "imagens/vinho-0008.jpeg"
   },
   {
     "id": 197,
@@ -5910,7 +5910,7 @@ const PRODUTOS = [
     "offerPrice": null,
     "stock": 20,
     "package": "garrafa",
-    "image": "imagens/vinho-0541.jpeg"
+    "image": "imagens/vinho-0813.jpeg"
   },
   {
     "id": 542,

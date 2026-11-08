@@ -1,15 +1,19 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Catálogo EnoPoa Vinhos">
+
     <title>EnoPoa Vinhos</title>
 
     <link rel="stylesheet" href="style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 
@@ -18,9 +22,9 @@
 <header class="header">
     <div class="container header-content">
 
-       <a href="#inicio" class="logo">
-    <img src="imagens/ENOPOALOGO.jpeg" alt="EnoPoa Vinhos">
-</a>
+        <a href="#inicio" class="logo">
+            <img src="imagens/ENOPOALOGO.jpeg" alt="EnoPoa Vinhos">
+        </a>
 
         <nav class="menu">
             <a href="#inicio">Início</a>
@@ -35,10 +39,15 @@
     </div>
 </header>
 
+
 <main>
 
+    <!-- INÍCIO -->
+
     <section class="hero" id="inicio">
+
         <div class="container hero-content">
+
             <p class="eyebrow">ENOPOA VINHOS</p>
 
             <h1>
@@ -54,18 +63,28 @@
             <a href="#catalogo" class="primary-button">
                 Explorar catálogo
             </a>
+
         </div>
+
     </section>
+
+
+    <!-- CATÁLOGO -->
 
     <section class="catalog section" id="catalogo">
 
         <div class="container">
 
             <div class="section-title">
+
                 <p>NOSSA SELEÇÃO</p>
+
                 <h2>Explore nossos rótulos</h2>
+
                 <span id="resultadoContagem"></span>
+
             </div>
+
 
             <div class="filters">
 
@@ -85,7 +104,9 @@
 
             </div>
 
+
             <div class="product-grid" id="productGrid"></div>
+
 
             <button
                 id="carregarMais"
@@ -95,16 +116,23 @@
                 Carregar mais vinhos
             </button>
 
+
             <p class="catalog-note">
                 Consulte a disponibilidade e confirme os valores
                 antes de finalizar seu pedido.
             </p>
 
         </div>
+
     </section>
 
+
+    <!-- SOBRE -->
+
     <section class="about-banner" id="sobre">
+
         <div class="container about-content">
+
             <p class="eyebrow">ENOPOA VINHOS</p>
 
             <h2>
@@ -116,12 +144,18 @@
                 É o momento, a companhia e a história
                 que fica depois da última taça.
             </span>
+
         </div>
+
     </section>
 
 </main>
 
+
+<!-- RODAPÉ -->
+
 <footer>
+
     <div class="container footer-content">
 
         <div class="footer-logo">
@@ -141,12 +175,17 @@
         © 2026 Eno Poa Vinhos — Todos os direitos reservados.
         Venda proibida para menores de 18 anos.
     </div>
+
 </footer>
+
 
 <!-- CARRINHO -->
 
-
-<div class="modal" id="modalCarrinho" onclick="fecharAoClicarFora(event)">
+<div
+    class="modal"
+    id="modalCarrinho"
+    onclick="fecharAoClicarFora(event)"
+>
 
     <div class="modal-content">
 
@@ -154,77 +193,263 @@
 
         <h2>Seu carrinho</h2>
 
+
+        <!-- PRODUTOS -->
+
         <div id="listaCarrinho">
-            <p class="empty-cart">Seu carrinho está vazio.</p>
+
+            <p class="empty-cart">
+                Seu carrinho está vazio.
+            </p>
+
         </div>
 
+
+        <!-- TOTAL -->
+
         <div class="cart-total">
+
             <span>Total</span>
+
             <strong id="totalCarrinho">R$ 0,00</strong>
+
         </div>
+
+
+        <!-- FORMULÁRIO -->
 
         <div class="delivery-form">
 
-            <h3>Dados para entrega</h3>
+            <div class="form-section">
 
-            <label for="nomeCliente">Nome completo</label>
-            <input
-                type="text"
-                id="nomeCliente"
-                placeholder="Digite seu nome"
-            >
+                <div class="form-section-title">
+                    <span>01</span>
+                    <div>
+                        <h3>Dados para entrega</h3>
+                        <p>Informe onde deseja receber seu pedido.</p>
+                    </div>
+                </div>
 
-            <label for="enderecoCliente">Rua e endereço</label>
-            <input
-                type="text"
-                id="enderecoCliente"
-                placeholder="Nome da rua e número"
-            >
 
-            <label for="bairroCliente">Bairro</label>
-            <input
-                type="text"
-                id="bairroCliente"
-                placeholder="Digite seu bairro"
-            >
+                <div class="form-field">
 
-            <label for="cidadeCliente">Cidade</label>
-            <input
-                type="text"
-                id="cidadeCliente"
-                placeholder="Digite sua cidade"
-            >
+                    <label for="nomeCliente">Nome completo</label>
 
-        <div class="gift-option">
-    <label class="gift-checkbox">
-        <input type="checkbox" id="pedidoPresente" onchange="alternarPresente()">
-        Este pedido é um presente 🎁
-    </label>
+                    <input
+                        type="text"
+                        id="nomeCliente"
+                        placeholder="Digite seu nome completo"
+                    >
 
-    <div id="campoMensagemPresente" class="gift-message" style="display: none;">
-        <label for="mensagemPresente">Mensagem para acompanhar o presente (opcional)</label>
-        <textarea
-            id="mensagemPresente"
-            placeholder="Escreva uma mensagem especial..."
-            rows="3"
-        ></textarea>
-    </div>
-</div>
+                </div>
 
-            <label for="complementoCliente">Complemento (opcional)</label>
-            <input
-                type="text"
-                id="complementoCliente"
-                placeholder="Apartamento, bloco, referência..."
-            >
+
+                <div class="form-field">
+
+                    <label for="cepCliente">CEP</label>
+
+                    <input
+                        type="text"
+                        id="cepCliente"
+                        placeholder="00000-000"
+                        maxlength="9"
+                        inputmode="numeric"
+                    >
+
+                </div>
+
+
+                <div class="form-field">
+
+                    <label for="enderecoCliente">Rua e número</label>
+
+                    <input
+                        type="text"
+                        id="enderecoCliente"
+                        placeholder="Nome da rua e número"
+                    >
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-field">
+
+                        <label for="bairroCliente">Bairro</label>
+
+                        <input
+                            type="text"
+                            id="bairroCliente"
+                            placeholder="Seu bairro"
+                        >
+
+                    </div>
+
+                    <div class="form-field">
+
+                        <label for="cidadeCliente">Cidade</label>
+
+                        <input
+                            type="text"
+                            id="cidadeCliente"
+                            placeholder="Sua cidade"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-field">
+
+                    <label for="complementoCliente">
+                        Complemento
+                        <span>(opcional)</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="complementoCliente"
+                        placeholder="Apartamento, bloco, referência..."
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- DETALHES DO PEDIDO -->
+
+            <div class="form-section">
+
+                <div class="form-section-title">
+                    <span>02</span>
+                    <div>
+                        <h3>Detalhes do pedido</h3>
+                        <p>Conte se existe alguma orientação especial.</p>
+                    </div>
+                </div>
+
+
+                <div class="gift-option">
+
+                    <label class="gift-checkbox">
+
+                        <input
+                            type="checkbox"
+                            id="pedidoPresente"
+                            onchange="alternarPresente()"
+                        >
+
+                        <span>
+                            Este pedido é um presente 🎁
+                        </span>
+
+                    </label>
+
+
+                    <div
+                        id="campoMensagemPresente"
+                        class="gift-message"
+                        style="display: none;"
+                    >
+
+                        <label for="mensagemPresente">
+                            Mensagem para acompanhar o presente
+                            <span>(opcional)</span>
+                        </label>
+
+                        <textarea
+                            id="mensagemPresente"
+                            placeholder="Escreva uma mensagem especial..."
+                            rows="3"
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-field">
+
+                    <label for="observacoesEntrega">
+                        Observações sobre a entrega
+                        <span>(opcional)</span>
+                    </label>
+
+                    <textarea
+                        id="observacoesEntrega"
+                        placeholder="Ex.: Se não estiver em casa, pode deixar com o porteiro. Ou ligue antes de chegar..."
+                        rows="4"
+                    ></textarea>
+
+                    <small class="field-hint">
+                        Alguma instrução para facilitar a entrega?
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- PAGAMENTO -->
+
+            <div class="form-section">
+
+                <div class="form-section-title">
+                    <span>03</span>
+                    <div>
+                        <h3>Forma de pagamento</h3>
+                        <p>Escolha como deseja pagar seu pedido.</p>
+                    </div>
+                </div>
+
+
+                <div class="form-field">
+
+                    <label for="formaPagamento">
+                        Como deseja pagar?
+                    </label>
+
+                    <select id="formaPagamento">
+
+                        <option value="">
+                            Selecione uma forma de pagamento
+                        </option>
+
+                        <option value="Dinheiro">
+                            Dinheiro
+                        </option>
+
+                        <option value="Pix">
+                            Pix
+                        </option>
+
+                        <option value="Cartão">
+                            Cartão
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
 
         </div>
 
-        <button class="checkout-button" onclick="finalizarPedido()">
+
+        <!-- FINALIZAR -->
+
+        <button
+            class="checkout-button"
+            onclick="finalizarPedido()"
+        >
             Solicitar pedido pelo WhatsApp
         </button>
 
     </div>
+
 </div>
 
 

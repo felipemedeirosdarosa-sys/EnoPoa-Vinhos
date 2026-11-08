@@ -1,5 +1,7 @@
 
+// ==========================================
 // ENOPOA VINHOS
+// ==========================================
 
 const WHATSAPP_NUMBER = "555193691915";
 
@@ -9,7 +11,9 @@ let produtosVisiveis = PAGE_SIZE;
 let carrinho = [];
 
 
+// ==========================================
 // FORMATAÇÃO DE PREÇOS
+// ==========================================
 
 function dinheiro(valor) {
     return Number(valor).toLocaleString("pt-BR", {
@@ -19,7 +23,9 @@ function dinheiro(valor) {
 }
 
 
+// ==========================================
 // NOTIFICAÇÃO DO CARRINHO
+// ==========================================
 
 function mostrarNotificacao(mensagem) {
 
@@ -61,9 +67,16 @@ function mostrarNotificacao(mensagem) {
 }
 
 
-// FILTROS
+// ==========================================
+// INICIALIZAÇÃO DO CATÁLOGO
+// ==========================================
 
 function iniciarCatalogo() {
+
+    if (typeof PRODUTOS === "undefined") {
+        console.error("A lista PRODUTOS não foi carregada. Confira produtos.js.");
+        return;
+    }
 
     preencherFiltros();
 
@@ -76,10 +89,17 @@ function iniciarCatalogo() {
     document.getElementById("filtroOrigem")
         .addEventListener("change", filtrarProdutos);
 
+    // Exibe os primeiros 48 produtos automaticamente
+    produtosVisiveis = PAGE_SIZE;
     renderizarProdutos();
+
     atualizarCarrinho();
 }
 
+
+// ==========================================
+// PREENCHER FILTROS
+// ==========================================
 
 function preencherFiltros() {
 
@@ -105,14 +125,17 @@ function preencherFiltros() {
 
 
 function paisProduto(origem) {
-    return origem.replace(
+
+    return String(origem || "").replace(
         /^(Tinto|Branco|Rose|Rosé|Espumante)\s+/i,
         ""
     );
 }
 
 
+// ==========================================
 // BUSCA E FILTRAGEM
+// ==========================================
 
 function produtosFiltrados() {
 
@@ -135,12 +158,16 @@ function produtosFiltrados() {
 
 
 function filtrarProdutos() {
+
     produtosVisiveis = PAGE_SIZE;
+
     renderizarProdutos();
 }
 
 
+// ==========================================
 // EXIBIR PRODUTOS
+// ==========================================
 
 function renderizarProdutos() {
 
@@ -169,11 +196,11 @@ function renderizarProdutos() {
 
             const precoAtual = p.offerPrice ?? p.price;
 
-            const etiqueta = p.offerPrice !== null
+            const etiqueta = p.offerPrice != null
                 ? "OFERTA"
                 : p.package === "caixa" ? "CAIXA / KIT" : "";
 
-            const precoAntigo = p.offerPrice !== null
+            const precoAntigo = p.offerPrice != null
                 ? `<span class="old-price">${dinheiro(p.price)}</span>`
                 : "";
 
@@ -251,7 +278,9 @@ function renderizarProdutos() {
         });
     }
 
-    document.getElementById("carregarMais").style.display =
+    const botaoCarregar = document.getElementById("carregarMais");
+
+    botaoCarregar.style.display =
         todos.length > produtosVisiveis ? "block" : "none";
 }
 
@@ -269,13 +298,21 @@ function escaparHTML(texto) {
 }
 
 
+// ==========================================
+// CARREGAR MAIS VINHOS
+// ==========================================
+
 function carregarMais() {
+
     produtosVisiveis += PAGE_SIZE;
+
     renderizarProdutos();
 }
 
 
+// ==========================================
 // CARRINHO
+// ==========================================
 
 function adicionarCarrinho(id) {
 
@@ -286,8 +323,11 @@ function adicionarCarrinho(id) {
     const existente = carrinho.find(p => p.id === id);
 
     if (existente) {
+
         existente.quantidade++;
+
     } else {
+
         carrinho.push({
             id: id,
             quantidade: 1
@@ -300,7 +340,9 @@ function adicionarCarrinho(id) {
 }
 
 
+// ==========================================
 // ATUALIZAR CARRINHO
+// ==========================================
 
 function atualizarCarrinho() {
 
@@ -324,6 +366,7 @@ function atualizarCarrinho() {
         `;
 
         totalElemento.textContent = dinheiro(0);
+
         return;
     }
 
@@ -398,7 +441,9 @@ function atualizarCarrinho() {
 }
 
 
+// ==========================================
 // ALTERAR QUANTIDADE
+// ==========================================
 
 function alterarQuantidade(id, variacao) {
 
@@ -409,7 +454,9 @@ function alterarQuantidade(id, variacao) {
     item.quantidade += variacao;
 
     if (item.quantidade <= 0) {
+
         removerDoCarrinho(id);
+
         return;
     }
 
@@ -417,26 +464,31 @@ function alterarQuantidade(id, variacao) {
 }
 
 
+// ==========================================
 // REMOVER PRODUTO
+// ==========================================
 
 function removerDoCarrinho(id) {
 
     carrinho = carrinho.filter(item => item.id !== id);
 
     atualizarCarrinho();
-
 }
 
 
+// ==========================================
 // ABRIR E FECHAR CARRINHO
+// ==========================================
 
 function abrirCarrinho() {
+
     document.getElementById("modalCarrinho")
         .classList.add("active");
 }
 
 
 function fecharCarrinho() {
+
     document.getElementById("modalCarrinho")
         .classList.remove("active");
 }
@@ -447,32 +499,37 @@ function fecharAoClicarFora(event) {
     if (event.target.id === "modalCarrinho") {
         fecharCarrinho();
     }
-
 }
 
 
+// ==========================================
 // FINALIZAR PEDIDO PELO WHATSAPP
+// ==========================================
 
 function finalizarPedido() {
 
     if (carrinho.length === 0) {
+
         alert("Adicione algum vinho ao carrinho.");
+
         return;
     }
 
     // DADOS DO CLIENTE
 
     const nome = document.getElementById("nomeCliente").value.trim();
+    const cep = document.getElementById("cepCliente").value.trim();
     const endereco = document.getElementById("enderecoCliente").value.trim();
     const bairro = document.getElementById("bairroCliente").value.trim();
     const cidade = document.getElementById("cidadeCliente").value.trim();
-
-    const cepCampo = document.getElementById("cepCliente");
-    const cep = cepCampo ? cepCampo.value.trim() : "";
-
     const complemento = document.getElementById("complementoCliente").value.trim();
 
-    // DADOS DO PRESENTE
+    // PAGAMENTO E ENTREGA
+
+    const pagamento = document.getElementById("formaPagamento").value;
+    const observacoes = document.getElementById("observacoesEntrega").value.trim();
+
+    // PRESENTE
 
     const presente = document.getElementById("pedidoPresente");
     const mensagemPresente = document.getElementById("mensagemPresente");
@@ -483,28 +540,27 @@ function finalizarPedido() {
         ? mensagemPresente.value.trim()
         : "";
 
-    // VALIDAR CAMPOS OBRIGATÓRIOS
+    // VALIDAÇÃO
 
-    if (!nome || !endereco || !bairro || !cidade) {
+    const cepNumeros = cep.replace(/\D/g, "");
 
-        alert(
-            "Preencha seu nome, endereço, bairro e cidade para continuar."
-        );
+    if (!nome || !cep || !endereco || !bairro || !cidade || !pagamento) {
 
-        const primeiroCampo = !nome
-            ? "nomeCliente"
-            : !endereco
-                ? "enderecoCliente"
-                : !bairro
-                    ? "bairroCliente"
-                    : "cidadeCliente";
-
-        document.getElementById(primeiroCampo).focus();
+        alert("Preencha todos os campos obrigatórios e escolha uma forma de pagamento.");
 
         return;
     }
 
-    // MONTAR PEDIDO
+    if (cepNumeros.length !== 8) {
+
+        alert("Digite um CEP válido com 8 números.");
+
+        document.getElementById("cepCliente").focus();
+
+        return;
+    }
+
+    // PRODUTOS
 
     let total = 0;
 
@@ -515,7 +571,6 @@ function finalizarPedido() {
         if (!produto) return "";
 
         const preco = produto.offerPrice ?? produto.price;
-
         const subtotal = preco * item.quantidade;
 
         total += subtotal;
@@ -527,26 +582,32 @@ Subtotal: ${dinheiro(subtotal)}`;
 
     }).filter(Boolean);
 
-    // MONTAR ENDEREÇO
+    // ENDEREÇO
 
     const enderecoCompleto = [
         endereco,
         `Bairro: ${bairro}`,
         cidade,
-        cep ? `CEP: ${cep}` : "",
+        `CEP: ${cep}`,
         complemento ? `Complemento: ${complemento}` : ""
     ].filter(Boolean).join("\n");
 
-    // INFORMAÇÕES DO PRESENTE
+    // PRESENTE
 
     const dadosPresente = ehPresente
         ? `*PEDIDO PARA PRESENTE* 🎁\n` +
           (textoPresente
               ? `Mensagem: ${textoPresente}\n`
-              : `Sem mensagem personalizada.\n`)
+              : "Sem mensagem personalizada.\n")
         : "";
 
-    // MENSAGEM PARA WHATSAPP
+    // OBSERVAÇÕES DA ENTREGA
+
+    const dadosEntrega = observacoes
+        ? `*OBSERVAÇÕES DA ENTREGA*\n${observacoes}\n\n`
+        : "";
+
+    // MENSAGEM DO WHATSAPP
 
     const mensagem =
         `Olá! Gostaria de fazer um pedido na EnoPoa Vinhos! 🍷\n\n` +
@@ -554,8 +615,9 @@ Subtotal: ${dinheiro(subtotal)}`;
         `Nome: ${nome}\n\n` +
         `*ENDEREÇO DE ENTREGA*\n` +
         `${enderecoCompleto}\n\n` +
+        `*FORMA DE PAGAMENTO*\n${pagamento}\n\n` +
+        dadosEntrega +
         dadosPresente +
-        (ehPresente ? "\n" : "") +
         `*MEU PEDIDO*\n\n` +
         `${linhas.join("\n\n")}\n\n` +
         `*TOTAL: ${dinheiro(total)}*\n\n` +
@@ -568,12 +630,9 @@ Subtotal: ${dinheiro(subtotal)}`;
 }
 
 
-// INICIALIZAÇÃO
-
-document.addEventListener("DOMContentLoaded", iniciarCatalogo);
-
-
+// ==========================================
 // MOSTRAR OU OCULTAR CAMPO DE PRESENTE
+// ==========================================
 
 function alternarPresente() {
 
@@ -584,3 +643,10 @@ function alternarPresente() {
 
     campo.style.display = presente.checked ? "block" : "none";
 }
+
+
+// ==========================================
+// INICIALIZAÇÃO
+// ==========================================
+
+document.addEventListener("DOMContentLoaded", iniciarCatalogo);
